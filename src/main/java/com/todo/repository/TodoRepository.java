@@ -10,6 +10,8 @@ import com.todo.model.Todo;
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
+	List<Todo> findByTitle(String title);
+
 	List<Todo> findByState(Boolean state);
 
 }

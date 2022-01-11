@@ -10,4 +10,6 @@ public interface TodoService {
 
 	public List<TodoDto> getTodosByState(boolean state);
 
+	public TodoDto createOrMAJTodo(TodoDto todoDto);
+
 }

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.todo.model.Todo;
 import com.todo.model.dto.TodoDto;
 import com.todo.repository.TodoRepository;
 import com.todo.service.TodoService;
@@ -53,6 +54,24 @@ public class TodoServiceImpl implements TodoService {
 		// Valoriser le champ datePassed et retourner la liste des rappels
 		todosDto.stream().forEach(todo -> todo.setDatePassed(calculDatePassed(todo.getDateTodo())));
 		return todosDto;
+	}
+
+	/*
+	 * Méthode qui permet de créer un rappel
+	 * 
+	 * @return TodoDto
+	 */
+	@Override
+	public TodoDto createOrMAJTodo(TodoDto todoDto) {
+
+		// Récupération et conversion de la liste des rappels vers des dto
+		Todo todo = todoRepository.save(modelMapper.map(todoDto, Todo.class));
+
+		TodoDto todoDtoOut = modelMapper.map(todo, TodoDto.class);
+
+		// Valoriser le champ datePassed et retourner la liste des rappels
+		todoDtoOut.setDatePassed(calculDatePassed(todoDtoOut.getDateTodo()));
+		return todoDtoOut;
 	}
 
 	/*

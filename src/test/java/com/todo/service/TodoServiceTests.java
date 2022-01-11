@@ -186,6 +186,33 @@ class TodoServiceTests {
 
 	}
 
+	@Test
+	void createOrMAJTodo_thenReturnTodoDto() throws Exception {
+
+		// Given
+		// + 1h
+		Timestamp ts = new Timestamp(System.currentTimeMillis() + 3600000);
+
+		Todo todo = createTodo("title", "desc", false, ts);
+		TodoDto todoDto = createTodoDto(todo);
+
+		Mockito.when(todoRepository.save(todo)).thenReturn(todo);
+		Mockito.when(modelMapper.map(todoDto, Todo.class)).thenReturn(todo);
+		Mockito.when(modelMapper.map(todo, TodoDto.class)).thenReturn(todoDto);
+
+		// When
+		TodoDto todoDtoOut = todoService.createOrMAJTodo(todoDto);
+
+		// Then
+		assertNotNull(todoDtoOut);
+		assertEquals("title", todoDtoOut.getTitle());
+		assertEquals("desc", todoDtoOut.getDescription());
+		assertEquals(false, todoDtoOut.isState());
+		assertEquals(ts, todoDtoOut.getDateTodo());
+		assertEquals(false, todoDtoOut.isDatePassed());
+
+	}
+
 	private Todo createTodo(String title, String description, boolean state, Timestamp dateTodo) {
 		Todo todo = new Todo();
 		todo.setTitle(title);

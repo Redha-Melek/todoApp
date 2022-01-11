@@ -16,6 +16,16 @@
 			    <td th:text="${todo.getDateTodo()}"/>
 			    <td th:if="${todo.isDatePassed()}">
 			    	<p style="background-color:Red;" th:text="${T(com.todo.constantes.Constantes).MESSAGE_DATE_DEPASSEE}"></p>
+			    </td>
+			    <td>
+			    	<form action="#" th:action="@{/updateTodoToForm}" th:object="${todoIn}" method="post">
+			    		 <input type="hidden" name="id" th:value="${todo.getId()}">
+			    		 <input type="hidden" name="state" th:value="${todo.isState()}">
+			    		 <input type="hidden" name="title" th:value="${todo.getTitle()}">
+			    		 <input type="hidden" name="description" th:value="${todo.getDescription()}">
+			    		 <input type="hidden" name="dateTodo" th:value="${todo.getDateTodo()}">				    		 
+						 <input type="submit" value="edit"/>
+					</form>				    
 			    </td>				    
 		    </tr>
 		</table>	
@@ -33,7 +43,17 @@
 				    <td th:text="${todo.getDateTodo()}"/>
 				    <td th:if="${todo.isDatePassed()}">
 				    	<p style="background-color:Red;" th:text="${T(com.todo.constantes.Constantes).MESSAGE_DATE_DEPASSEE}"></p>
-				    </td>    
+				    </td>
+				    <td>
+				    	<form action="#" th:action="@{/updateTodoToForm}" th:object="${todoIn}" method="post">
+				    		 <input type="hidden" name="id" th:value="${todo.getId()}">
+				    		 <input type="hidden" name="state" th:value="${todo.isState()}">
+				    		 <input type="hidden" name="title" th:value="${todo.getTitle()}">
+				    		 <input type="hidden" name="description" th:value="${todo.getDescription()}">
+				    		 <input type="hidden" name="dateTodo" th:value="${todo.getDateTodo()}">				    		 
+							 <input type="submit" value="edit"/>
+						</form>				    
+				    </td>	    
 		    </tr>
 		</table>
 		<h3>Liste des rappels done: </h3>
@@ -47,8 +67,25 @@
 			    <td>
 				    <p th:title="${todo.getDescription()}" th:text="${todo.getTitle()}"></p>
 			    </td>
-			    <td th:text="${todo.getDateTodo()}"/>				    
+			    <td th:text="${todo.getDateTodo()}"/>
+			    <td>
+			    	<form action="#" th:action="@{/updateTodoToForm}" th:object="${todoIn}" method="post">
+			    		 <input type="hidden" name="id" th:value="${todo.getId()}">
+			    		 <input type="hidden" name="state" th:value="${todo.isState()}">
+			    		 <input type="hidden" name="title" th:value="${todo.getTitle()}">
+			    		 <input type="hidden" name="description" th:value="${todo.getDescription()}">
+			    		 <input type="hidden" name="dateTodo" th:value="${todo.getDateTodo()}">				    		 
+						 <input type="submit" value="edit"/>
+					</form>				    
+			    </td>				    
 		    </tr>
 		</table>	
+		
+		<form action="#" th:action="@{/createTodoForm}" th:object="${todoIn}" method="post">
+		  <input type="text" th:field="*{title}" />
+		  <input type="text" th:field="*{description}" />	
+		  <input type="datetime-local" th:field="*{dateOfTodo}" />	  
+		  <input type="submit" />
+		</form>
 	</body>
 </html>

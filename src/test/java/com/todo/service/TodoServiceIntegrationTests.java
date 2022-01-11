@@ -92,6 +92,58 @@ class TodoServiceIntegrationTests {
 
 	}
 
+	@Test
+	void createTodo_thenReturnTodoDto() throws Exception {
+
+		// Given
+		// + 1h
+		Timestamp ts = new Timestamp(System.currentTimeMillis() + 3600000);
+		Todo todo = new Todo();
+		todo.setTitle("title");
+		todo.setDescription("desc");
+		todo.setState(false);
+		todo.setDateTodo(ts);
+
+		TodoDto todoDto = createTodoDto(todo);
+
+		// When
+		TodoDto todoDtoOut = todoService.createOrMAJTodo(todoDto);
+
+		// Then
+		assertNotNull(todoDtoOut);
+		assertEquals("title", todoDtoOut.getTitle());
+		assertEquals("desc", todoDtoOut.getDescription());
+		assertEquals(false, todoDtoOut.isState());
+		assertEquals(ts, todoDtoOut.getDateTodo());
+		assertEquals(false, todoDtoOut.isDatePassed());
+
+	}
+
+	@Test
+	void majTodo_thenReturnTodoDto() throws Exception {
+
+		// Given
+		// + 1h
+		Timestamp ts = new Timestamp(System.currentTimeMillis() + 3600000);
+
+		Todo todo = createTodo("title", "desc", false, ts);
+		TodoDto todoDto = createTodoDto(todo);
+
+		todoDto.setDescription("desc4");
+
+		// When
+		TodoDto todoDtoOut = todoService.createOrMAJTodo(todoDto);
+
+		// Then
+		assertNotNull(todoDtoOut);
+		assertEquals("title", todoDtoOut.getTitle());
+		assertEquals("desc4", todoDtoOut.getDescription());
+		assertEquals(false, todoDtoOut.isState());
+		assertEquals(ts, todoDtoOut.getDateTodo());
+		assertEquals(false, todoDtoOut.isDatePassed());
+
+	}
+
 	private Todo createTodo(String title, String description, boolean state, Timestamp dateTodo) {
 		Todo todo = new Todo();
 		todo.setTitle(title);
@@ -100,6 +152,19 @@ class TodoServiceIntegrationTests {
 		todo.setDateTodo(dateTodo);
 		return todoRepository.save(todo);
 
+	}
+
+	private TodoDto createTodoDto(Todo todo) {
+
+		TodoDto todoDto = new TodoDto();
+		if (todo.getId() != null) {
+			todoDto.setId(todo.getId());
+		}
+		todoDto.setTitle(todo.getTitle());
+		todoDto.setDescription(todo.getDescription());
+		todoDto.setState(todo.isState());
+		todoDto.setDateTodo(todo.getDateTodo());
+		return todoDto;
 	}
 
 }
