@@ -1,0 +1,54 @@
+<html>
+	<head><title>Home Page</title></head>
+	<body>
+		<h1>Todo Application</h1>
+		<h3>Liste des rappels : </h3>
+		<p th:if="${#lists.isEmpty(todos)}">Liste vide : </p>		
+		<table>
+		    <tr th:if="${not #lists.isEmpty(todos)}">
+		        <th>Titre</th>
+		        <th>Date du rappel</th>
+		    </tr>
+    		<tr th:each="todo: ${todos}">
+			    <td>
+				    <p th:title="${todo.getDescription()}" th:text="${todo.getTitle()}"></p>
+			    </td>
+			    <td th:text="${todo.getDateTodo()}"/>
+			    <td th:if="${todo.isDatePassed()}">
+			    	<p style="background-color:Red;" th:text="${T(com.todo.constantes.Constantes).MESSAGE_DATE_DEPASSEE}"></p>
+			    </td>				    
+		    </tr>
+		</table>	
+		<h3>Liste des rappels non done: </h3>
+		<p th:if="${#lists.isEmpty(todosNonDone)}">Liste vide : </p>					
+		<table>
+		    <tr th:if="${not #lists.isEmpty(todosNonDone)}">
+		        <th>Titre</th>
+		        <th>Date du rappel</th>
+		    </tr>
+    		<tr th:each="todo: ${todosNonDone}">
+				    <td>
+					    <p th:title="${todo.getDescription()}" th:text="${todo.getTitle()}"></p>
+				    </td>
+				    <td th:text="${todo.getDateTodo()}"/>
+				    <td th:if="${todo.isDatePassed()}">
+				    	<p style="background-color:Red;" th:text="${T(com.todo.constantes.Constantes).MESSAGE_DATE_DEPASSEE}"></p>
+				    </td>    
+		    </tr>
+		</table>
+		<h3>Liste des rappels done: </h3>
+		<p th:if="${#lists.isEmpty(todosDone)}">Liste vide : </p>			
+		<table>
+		    <tr th:if="${not #lists.isEmpty(todosDone)}">
+		        <th>Titre</th>
+		        <th>Date du rappel</th>
+		    </tr>
+    		<tr th:each="todo: ${todosDone}">
+			    <td>
+				    <p th:title="${todo.getDescription()}" th:text="${todo.getTitle()}"></p>
+			    </td>
+			    <td th:text="${todo.getDateTodo()}"/>				    
+		    </tr>
+		</table>	
+	</body>
+</html>

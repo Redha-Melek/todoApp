@@ -1,0 +1,2 @@
+INSERT INTO todo (id, title, description, state, date_todo) VALUES (1, 'Entretien technique Cap', 'Entretien technique Cap desciption', true, '2022-01-04 12:25:26');
+INSERT INTO todo (id, title, description, state, date_todo) VALUES (2, 'Révision voiture', 'Maison Renault', false, '2022-01-12 12:54:26');
